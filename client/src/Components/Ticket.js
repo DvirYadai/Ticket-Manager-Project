@@ -11,12 +11,8 @@ export default function Ticket({
 
   const hideButton = (e) => {
     const target = e.target.parentNode;
-    target.classList.add("hidden");
     const ticketArr = Array.from(document.querySelectorAll(".ticket"));
-    const ticketIndex = ticketArr.findIndex(
-      (ticket) => ticket.className === "ticket hidden"
-    );
-    target.classList.remove("hidden");
+    const ticketIndex = ticketArr.indexOf(target);
     const tempTicketsArr = [...tickets];
     tempTicketsArr.splice(ticketIndex, 1);
     setTickets(tempTicketsArr);
