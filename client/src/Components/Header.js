@@ -7,15 +7,11 @@ export default function Header({
   counter,
   setCounter,
   setTickets,
+  copyTicketArr,
 }) {
   const restoreButton = async () => {
-    try {
-      const res = await axios.get("/api/tickets");
-      setTickets(res.data);
-      setCounter(0);
-    } catch (error) {
-      console.log(error);
-    }
+    setTickets(copyTicketArr);
+    setCounter(0);
   };
 
   const hiddenSpan = (

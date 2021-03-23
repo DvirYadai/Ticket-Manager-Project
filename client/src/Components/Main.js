@@ -8,12 +8,14 @@ export default function Main() {
   const [searchText, setSearchText] = useState("");
   const [counter, setCounter] = useState(0);
   const firstUpdate = useRef(true);
+  const [copyTicketArr, setCopyTicketArr] = useState([]);
 
   useEffect(() => {
     (async function getAllTickets() {
       try {
         const res = await axios.get("/api/tickets");
         setTickets(res.data);
+        setCopyTicketArr(res.data);
       } catch (error) {
         console.log(error);
       }
@@ -43,6 +45,7 @@ export default function Main() {
         tickets={tickets}
         setCounter={setCounter}
         counter={counter}
+        copyTicketArr={copyTicketArr}
       />
       {tickets.map((ticket, i) => {
         return (
