@@ -25,4 +25,16 @@ router.patch("/:ticketId/done", (req, res) => {
     });
 });
 
+router.patch("/:ticketId/undone", (req, res) => {
+  const { ticketId } = req.params;
+  Ticket.findByIdAndUpdate(ticketId, { done: false }, { new: true })
+    .then((ticket) => {
+      console.log(ticket);
+      return res.status(200).json({ updated: true });
+    })
+    .catch((err) => {
+      return res.status(404).send("There is no such id");
+    });
+});
+
 module.exports = router;
