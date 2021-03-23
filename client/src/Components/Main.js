@@ -39,18 +39,18 @@ export default function Main() {
     <div>
       <Header
         setSearchText={setSearchText}
-        tickets={tickets}
-        counter={counter}
-        setCounter={setCounter}
         setTickets={setTickets}
+        tickets={tickets}
+        setCounter={setCounter}
+        counter={counter}
       />
       {tickets.map((ticket, i) => {
         return (
           <Ticket
+            key={`ticketKey #${i}`}
             tickets={tickets}
             setTickets={setTickets}
             ticket={ticket}
-            key={`ticketKey #${i}`}
             setCounter={setCounter}
             counter={counter}
           />
