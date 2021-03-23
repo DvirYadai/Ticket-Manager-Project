@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function Ticket({ ticket }) {
-  console.log(ticket.labels);
   return (
     <div className="ticket">
       <h1>{ticket.title}</h1>
