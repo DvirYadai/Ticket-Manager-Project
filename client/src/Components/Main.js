@@ -6,6 +6,7 @@ import Header from "./Header";
 export default function Main() {
   const [tickets, setTickets] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [counter, setCounter] = useState(0);
   const firstUpdate = useRef(true);
 
   useEffect(() => {
@@ -36,9 +37,24 @@ export default function Main() {
 
   return (
     <div>
-      <Header setSearchText={setSearchText} />
+      <Header
+        setSearchText={setSearchText}
+        tickets={tickets}
+        counter={counter}
+        setCounter={setCounter}
+        setTickets={setTickets}
+      />
       {tickets.map((ticket, i) => {
-        return <Ticket ticket={ticket} key={`ticketKey #${i}`} />;
+        return (
+          <Ticket
+            tickets={tickets}
+            setTickets={setTickets}
+            ticket={ticket}
+            key={`ticketKey #${i}`}
+            setCounter={setCounter}
+            counter={counter}
+          />
+        );
       })}
     </div>
   );
