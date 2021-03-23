@@ -13,4 +13,16 @@ router.get("/", (req, res) => {
     });
 });
 
+router.patch("/:ticketId/done", (req, res) => {
+  const { ticketId } = req.params;
+  Ticket.findByIdAndUpdate(ticketId, { done: true }, { new: true })
+    .then((ticket) => {
+      console.log(ticket);
+      return res.status(200).json({ updated: true });
+    })
+    .catch((err) => {
+      return res.status(404).send("There is no such id");
+    });
+});
+
 module.exports = router;
