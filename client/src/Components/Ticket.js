@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function Ticket({
   tickets,
@@ -7,6 +7,8 @@ export default function Ticket({
   setCounter,
   counter,
 }) {
+  const [showLess, setShowLess] = useState(true);
+
   const hideButton = (e) => {
     const target = e.target.parentNode;
     target.classList.add("hidden");
@@ -16,9 +18,7 @@ export default function Ticket({
     );
     target.classList.remove("hidden");
     const tempTicketsArr = [...tickets];
-    console.log(tickets);
     tempTicketsArr.splice(ticketIndex, 1);
-    console.log(tickets);
     setTickets(tempTicketsArr);
     setCounter(counter + 1);
   };
@@ -29,7 +29,16 @@ export default function Ticket({
         Hide
       </button>
       <h1>{ticket.title}</h1>
-      <p>{ticket.content}</p>
+      <p>
+        {showLess && ticket.content.length > 400
+          ? `${ticket.content.slice(0, 400)}...`
+          : ticket.content}
+      </p>
+      {ticket.content.length > 400 ? (
+        <span onClick={() => setShowLess(!showLess)}>
+          {showLess ? "see more" : "see less"}
+        </span>
+      ) : null}
       <div className="ticket-info">
         <p>{`By ${ticket.userEmail} | ${ticket.creationTime}`}</p>
         {ticket.labels ? (
