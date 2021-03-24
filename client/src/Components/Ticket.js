@@ -45,9 +45,11 @@ export default function Ticket({
       <button className="hideTicketButton" onClick={(e) => hideButton(e)}>
         Hide
       </button>
-      <button className="done-button" onClick={doneButton}>
-        {done ? <CheckBox /> : <CheckBoxOutlineBlank />}
-      </button>
+      {done ? (
+        <CheckBox className="done-button" onClick={doneButton} />
+      ) : (
+        <CheckBoxOutlineBlank className="done-button" onClick={doneButton} />
+      )}
       <h1>{ticket.title}</h1>
       <p>
         {showLess && ticket.content.length > 400

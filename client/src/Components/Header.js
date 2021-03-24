@@ -38,9 +38,11 @@ export default function Header({
         id="searchInput"
         onChange={(e) => setSearchText(e.target.value)}
       ></input>
-      <button className="add-button" onClick={handleClickOpen}>
-        <AddCircleIcon color="primary" />
-      </button>
+      <AddCircleIcon
+        color="primary"
+        className="add-button"
+        onClick={handleClickOpen}
+      />
       <NewTicket setOpen={setOpen} open={open} />
       <p>
         Showing {tickets.length} results {counter > 0 ? hiddenSpan : ""}
