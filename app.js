@@ -4,6 +4,7 @@ const ticketRoute = require("./routes/ticket");
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 app.use("/api/tickets", ticketRoute);
 app.use(express.static("client/build"));
 

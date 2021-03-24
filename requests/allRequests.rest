@@ -1,4 +1,4 @@
-GET http://localhost:8080/api/tickets?searchText=need
+GET http://localhost:8080/api/tickets
 
 ###
 
@@ -7,3 +7,17 @@ PATCH http://localhost:8080/api/tickets/6059c1616d1dbe3d4c5ac91d/done
 ###
 
 PATCH http://localhost:8080/api/tickets/6059c1616d1dbe3d4c5ac91d/undone
+
+###
+
+POST http://localhost:8080/api/tickets/post 
+content-type: application/json
+
+ {
+    "title": "asd",
+    "content": "asdasdasdasd",
+    "userEmail": "dvir195@gmail.com",
+    "done": false,
+    "creationTime": 1542111235544,
+    "labels": []
+ }

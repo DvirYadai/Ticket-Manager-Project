@@ -24,6 +24,25 @@ router.get("/", (req, res) => {
   }
 });
 
+router.post("/post", (req, res) => {
+  const { body } = req;
+
+  const newTicket = new Ticket({
+    title: body.title,
+    content: body.content,
+    userEmail: body.userEmail,
+    done: false,
+    creationTime: body.creationTime,
+    labels: body.labels,
+  });
+  newTicket
+    .save()
+    .then(() => {
+      return res.status(200).json({ post: "success" });
+    })
+    .catch((err) => res.status(500).send(err.message));
+});
+
 router.patch("/:ticketId/done", (req, res) => {
   const { ticketId } = req.params;
   Ticket.findByIdAndUpdate(ticketId, { done: true }, { new: true })
