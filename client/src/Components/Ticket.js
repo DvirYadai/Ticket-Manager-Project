@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 export default function Ticket({
   tickets,
@@ -8,6 +9,7 @@ export default function Ticket({
   counter,
 }) {
   const [showLess, setShowLess] = useState(true);
+  const [done, setDone] = useState(false);
 
   const hideButton = (e) => {
     const target = e.target.parentNode;
@@ -19,10 +21,33 @@ export default function Ticket({
     setCounter(counter + 1);
   };
 
+  const doneButton = async () => {
+    if (done) {
+      try {
+        const res = await axios.patch(`/api/tickets/${ticket._id}/undone`);
+        console.log(res);
+        setDone(false);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const res = await axios.patch(`/api/tickets/${ticket._id}/done`);
+        console.log(res);
+        setDone(true);
+      } catch (error) {
+        console.log(error.response);
+      }
+    }
+  };
+
   return (
     <div className="ticket">
       <button className="hideTicketButton" onClick={(e) => hideButton(e)}>
         Hide
+      </button>
+      <button className="done-button" onClick={doneButton}>
+        {done ? "UnDone" : "Done"}
       </button>
       <h1>{ticket.title}</h1>
       <p>
