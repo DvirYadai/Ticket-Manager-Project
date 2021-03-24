@@ -25,7 +25,6 @@ export default function Ticket({
     if (done) {
       try {
         const res = await axios.patch(`/api/tickets/${ticket._id}/undone`);
-        console.log(res);
         setDone(false);
       } catch (error) {
         console.log(error);
@@ -33,7 +32,6 @@ export default function Ticket({
     } else {
       try {
         const res = await axios.patch(`/api/tickets/${ticket._id}/done`);
-        console.log(res);
         setDone(true);
       } catch (error) {
         console.log(error.response);
