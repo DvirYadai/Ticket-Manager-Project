@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
 
 export default function Ticket({
   tickets,
@@ -45,7 +46,7 @@ export default function Ticket({
         Hide
       </button>
       <button className="done-button" onClick={doneButton}>
-        {done ? "UnDone" : "Done"}
+        {done ? <CheckBox /> : <CheckBoxOutlineBlank />}
       </button>
       <h1>{ticket.title}</h1>
       <p>
