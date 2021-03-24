@@ -36,6 +36,9 @@ export default function NewTicket({ setOpen, open, setTickets }) {
     ) {
       try {
         const res = await axios.post("/api/tickets/post", newTicket);
+        res.data.sort((a, b) => {
+          return new Date(b.creationTime) - new Date(a.creationTime);
+        });
         setTickets(res.data);
       } catch (error) {
         console.log(error);

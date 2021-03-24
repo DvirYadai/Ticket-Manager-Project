@@ -22,6 +22,9 @@ export default function Ticket({
     const ticketIndex = ticketArr.indexOf(target);
     const tempTicketsArr = [...tickets];
     tempTicketsArr.splice(ticketIndex, 1);
+    tempTicketsArr.sort((a, b) => {
+      return new Date(b.creationTime) - new Date(a.creationTime);
+    });
     setTickets(tempTicketsArr);
     setCounter(counter + 1);
   };
@@ -47,6 +50,9 @@ export default function Ticket({
   const deleteButton = async () => {
     try {
       const res = await axios.delete(`/api/tickets/${ticket._id}`);
+      res.data.sort((a, b) => {
+        return new Date(b.creationTime) - new Date(a.creationTime);
+      });
       setTickets(res.data);
     } catch (error) {
       console.log(error);

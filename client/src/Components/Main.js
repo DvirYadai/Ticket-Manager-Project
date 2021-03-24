@@ -14,6 +14,9 @@ export default function Main() {
     (async function getAllTickets() {
       try {
         const res = await axios.get("/api/tickets");
+        res.data.sort((a, b) => {
+          return new Date(b.creationTime) - new Date(a.creationTime);
+        });
         setTickets(res.data);
         setCopyTicketArr(res.data);
       } catch (error) {
@@ -30,6 +33,9 @@ export default function Main() {
     (async function getSpecificTicket() {
       try {
         const res = await axios.get(`/api/tickets?searchText=${searchText}`);
+        res.data.sort((a, b) => {
+          return new Date(b.creationTime) - new Date(a.creationTime);
+        });
         setTickets(res.data);
       } catch (error) {
         console.log(error);

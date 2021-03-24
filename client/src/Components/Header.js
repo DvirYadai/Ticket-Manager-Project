@@ -17,6 +17,9 @@ export default function Header({
   };
 
   const restoreButton = () => {
+    copyTicketArr.sort((a, b) => {
+      return new Date(b.creationTime) - new Date(a.creationTime);
+    });
     setTickets(copyTicketArr);
     setCounter(0);
   };
