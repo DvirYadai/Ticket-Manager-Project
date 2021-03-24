@@ -38,9 +38,25 @@ router.post("/post", (req, res) => {
   newTicket
     .save()
     .then(() => {
-      return res.status(200).json({ post: "success" });
+      Ticket.find().then((arr) => {
+        return res.status(200).json(arr);
+      });
     })
     .catch((err) => res.status(500).send(err.message));
+});
+
+router.delete("/:ticketId", (req, res) => {
+  const { ticketId } = req.params;
+
+  Ticket.findOneAndDelete({ _id: ticketId })
+    .then(() => {
+      Ticket.find().then((arr) => {
+        return res.status(200).json(arr);
+      });
+    })
+    .catch((err) => {
+      return res.status(500).send(err);
+    });
 });
 
 router.patch("/:ticketId/done", (req, res) => {
@@ -50,7 +66,7 @@ router.patch("/:ticketId/done", (req, res) => {
       return res.status(200).json({ updated: true });
     })
     .catch((err) => {
-      return res.status(404).send("There is no such id");
+      return res.status(500).send(err);
     });
 });
 
@@ -61,7 +77,7 @@ router.patch("/:ticketId/undone", (req, res) => {
       return res.status(200).json({ updated: true });
     })
     .catch((err) => {
-      return res.status(404).send("There is no such id");
+      return res.status(500).send(err);
     });
 });
 

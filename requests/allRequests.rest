@@ -21,3 +21,7 @@ content-type: application/json
     "creationTime": 1542111235544,
     "labels": []
  }
+
+###
+
+ DELETE http://localhost:8080/api/tickets/605b501a6a1718067042fe7b

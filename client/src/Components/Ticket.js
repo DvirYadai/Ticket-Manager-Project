@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
+import {
+  CheckBox,
+  CheckBoxOutlineBlank,
+  DeleteForever,
+} from "@material-ui/icons";
 
 export default function Ticket({
   tickets,
@@ -35,8 +39,17 @@ export default function Ticket({
         await axios.patch(`/api/tickets/${ticket._id}/done`);
         setDone(true);
       } catch (error) {
-        console.log(error.response);
+        console.log(error);
       }
+    }
+  };
+
+  const deleteButton = async () => {
+    try {
+      const res = await axios.delete(`/api/tickets/${ticket._id}`);
+      setTickets(res.data);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -50,6 +63,7 @@ export default function Ticket({
       ) : (
         <CheckBoxOutlineBlank className="done-button" onClick={doneButton} />
       )}
+      <DeleteForever className="delete-button" onClick={deleteButton} />
       <h1>{ticket.title}</h1>
       <p>
         {showLess && ticket.content.length > 400
