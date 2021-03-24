@@ -25,14 +25,14 @@ export default function Ticket({
   const doneButton = async () => {
     if (done) {
       try {
-        const res = await axios.patch(`/api/tickets/${ticket._id}/undone`);
+        await axios.patch(`/api/tickets/${ticket._id}/undone`);
         setDone(false);
       } catch (error) {
         console.log(error);
       }
     } else {
       try {
-        const res = await axios.patch(`/api/tickets/${ticket._id}/done`);
+        await axios.patch(`/api/tickets/${ticket._id}/done`);
         setDone(true);
       } catch (error) {
         console.log(error.response);
