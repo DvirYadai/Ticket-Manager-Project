@@ -1,3 +1,4 @@
+import "../App.css";
 import React, { useState } from "react";
 import axios from "axios";
 import {
@@ -61,24 +62,38 @@ export default function Ticket({
 
   return (
     <div className="ticket">
-      <button className="hideTicketButton" onClick={(e) => hideButton(e)}>
-        Hide
-      </button>
-      {done ? (
-        <CheckBox className="done-button" onClick={doneButton} />
-      ) : (
-        <CheckBoxOutlineBlank className="done-button" onClick={doneButton} />
-      )}
-      <DeleteForever className="delete-button" onClick={deleteButton} />
-      <h1>{ticket.title}</h1>
+      <div className="ticket-buttons">
+        <button className="hideTicketButton" onClick={(e) => hideButton(e)}>
+          Hide
+        </button>
+        {done ? (
+          <CheckBox
+            fontSize="large"
+            className="done-button"
+            onClick={doneButton}
+          />
+        ) : (
+          <CheckBoxOutlineBlank
+            fontSize="large"
+            className="done-button"
+            onClick={doneButton}
+          />
+        )}
+        <DeleteForever
+          fontSize="large"
+          className="delete-button"
+          onClick={deleteButton}
+        />
+      </div>
+      <h3>{ticket.title}</h3>
       <p>
         {showLess && ticket.content.length > 400
           ? `${ticket.content.slice(0, 400)}...`
           : ticket.content}
       </p>
       {ticket.content.length > 400 ? (
-        <span onClick={() => setShowLess(!showLess)}>
-          {showLess ? "see more" : "see less"}
+        <span className="show-more-span" onClick={() => setShowLess(!showLess)}>
+          {showLess ? "Show more.." : "Show less.."}
         </span>
       ) : null}
       <div className="ticket-info">
@@ -97,6 +112,7 @@ export default function Ticket({
           </ul>
         ) : null}
       </div>
+      <hr />
     </div>
   );
 }

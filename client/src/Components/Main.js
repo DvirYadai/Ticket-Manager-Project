@@ -1,3 +1,4 @@
+import "../App.css";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Ticket from "./Ticket";
@@ -44,7 +45,7 @@ export default function Main() {
   }, [searchText]);
 
   return (
-    <div>
+    <div id="main">
       <Header
         setSearchText={setSearchText}
         setTickets={setTickets}

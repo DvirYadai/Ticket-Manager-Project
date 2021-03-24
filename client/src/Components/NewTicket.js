@@ -1,3 +1,4 @@
+import "../App.css";
 import React from "react";
 import {
   Dialog,
@@ -48,7 +49,7 @@ export default function NewTicket({ setOpen, open, setTickets }) {
   };
 
   return (
-    <div>
+    <div id="new-ticket">
       <Dialog
         open={open}
         onClose={handleClose}

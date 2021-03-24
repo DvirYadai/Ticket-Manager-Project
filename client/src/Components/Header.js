@@ -1,3 +1,4 @@
+import "../App.css";
 import React, { useState } from "react";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import NewTicket from "./NewTicket";
@@ -29,20 +30,22 @@ export default function Header({
       (<span id="hideTicketsCounter">{counter}</span> hidden tickets -{" "}
       <button id="restoreHideTickets" onClick={restoreButton}>
         restore
-      </button>
+      </button>{" "}
       )
     </span>
   );
 
   return (
-    <div>
+    <div id="header">
       <h1>Tickets Manager</h1>
       <input
+        placeholder="Search tickets by title"
         id="searchInput"
         onChange={(e) => setSearchText(e.target.value)}
       ></input>
       <AddCircleIcon
-        color="primary"
+        fontSize="large"
+        // color="primary"
         className="add-button"
         onClick={handleClickOpen}
       />

@@ -1,38 +1,98 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
+  overflow-x: hidden;
   text-align: center;
+  background-color: #f3f4ed;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 1em;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background-color: #536162;
 }
 
-.App-link {
-  color: #61dafb;
+#header > * {
+  flex: 1, 1, 10em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#searchInput {
+  padding: 0.5rem;
+  margin-right: 2rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  outline: none;
+}
+
+#restoreHideTickets {
+  background: none;
+  border: none;
+  color: lightblue;
+  font-size: 1rem;
+  text-decoration: underline;
+}
+
+.ticket {
+  padding: 1rem;
+  text-align: left;
+}
+
+.ticket-buttons {
+  float: right;
+}
+
+.hideTicketButton {
+  display: block;
+  margin: 0 auto 0.2rem auto;
+  font-size: 1.2rem;
+  padding: 0 0.3rem;
+  background: none;
+  border: 1px solid lightblue;
+  border-radius: 5px;
+  outline: none;
+}
+
+.show-more-span {
+  position: relative;
+  top: 0.4rem;
+  cursor: pointer;
+  color: rgb(72, 186, 224);
+}
+
+.ticket-info {
+  margin: 1rem 0;
+}
+
+hr {
+  margin: 2rem auto 0 auto;
+  width: 20%;
+  border: none;
+  border-top: 8px dotted lightgray;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+li {
+  border: 1px solid rgb(30, 94, 146);
+  border-radius: 10px;
+  padding: 0.2rem;
+  background: lightblue;
+}
+
+/* Media Query */
+@media (min-width: 800px) {
 }
