@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import NewTicket from "./NewTicket";
 
 export default function Header({
   setSearchText,
@@ -8,7 +10,13 @@ export default function Header({
   setTickets,
   copyTicketArr,
 }) {
-  const restoreButton = async () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const restoreButton = () => {
     setTickets(copyTicketArr);
     setCounter(0);
   };
@@ -26,13 +34,17 @@ export default function Header({
   return (
     <div>
       <h1>Tickets Manager</h1>
-      <p>
-        Showing {tickets.length} results {counter > 0 ? hiddenSpan : ""}
-      </p>
       <input
         id="searchInput"
         onChange={(e) => setSearchText(e.target.value)}
       ></input>
+      <button className="add-button" onClick={handleClickOpen}>
+        <AddCircleIcon color="primary" />
+      </button>
+      <NewTicket setOpen={setOpen} open={open} />
+      <p>
+        Showing {tickets.length} results {counter > 0 ? hiddenSpan : ""}
+      </p>
     </div>
   );
 }
