@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 
-export default function NewTicket({ setOpen, open }) {
+export default function NewTicket({ setOpen, open, setTickets }) {
   const newTicket = {
     title: "",
     content: "",
@@ -35,8 +35,8 @@ export default function NewTicket({ setOpen, open }) {
       emailRef.current.reportValidity()
     ) {
       try {
-        const res = axios.post("/api/tickets/post", newTicket);
-        console.log(res);
+        const res = await axios.post("/api/tickets/post", newTicket);
+        setTickets(res.data);
       } catch (error) {
         console.log(error);
       }

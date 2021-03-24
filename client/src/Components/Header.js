@@ -43,7 +43,7 @@ export default function Header({
         className="add-button"
         onClick={handleClickOpen}
       />
-      <NewTicket setOpen={setOpen} open={open} />
+      <NewTicket setOpen={setOpen} open={open} setTickets={setTickets} />
       <p>
         Showing {tickets.length} results {counter > 0 ? hiddenSpan : ""}
       </p>
