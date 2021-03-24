@@ -60,7 +60,9 @@ export default function Ticket({
         </span>
       ) : null}
       <div className="ticket-info">
-        <p>{`By ${ticket.userEmail} | ${ticket.creationTime}`}</p>
+        <p>{`By ${ticket.userEmail} | ${new Date(
+          ticket.creationTime
+        ).toLocaleString()}`}</p>
         {ticket.labels ? (
           <ul>
             {ticket.labels.map((label, i) => {
