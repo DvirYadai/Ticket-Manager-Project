@@ -105,4 +105,25 @@ describe(projectName, () => {
     const revertedTicket = await tickets.findOne({});
     expect(revertedTicket.done).toBe(currentState);
   });
+  test("Can add new ticket", async () => {
+    const allTickets = await tickets.find({}).toArray();
+    const res = await request(app).post("/api/tickets/post").send({
+      title: "asd",
+      content: "asdasdasdasd",
+      userEmail: "dvir195@gmail.com",
+      done: false,
+      creationTime: 1542111235544,
+      labels: [],
+    });
+
+    expect(res.status).toBe(200);
+    expect(res.body.length).toBe(allTickets.length + 1);
+  });
+  test("Can delete ticket", async () => {
+    const allTickets = await tickets.find({}).toArray();
+    const res = await request(app).delete(`/api/tickets/${allTickets[0]._id}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.length).toBe(allTickets.length - 1);
+  });
 });
