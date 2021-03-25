@@ -10,6 +10,7 @@
   overflow-x: hidden;
   text-align: center;
   background-color: #f3f4ed;
+  font-family: "Roboto", sans-serif;
 }
 
 #header {
@@ -19,10 +20,6 @@
   flex-wrap: wrap;
   padding: 1rem;
   background-color: #536162;
-}
-
-#header > * {
-  flex: 1, 1, 10em;
 }
 
 #searchInput {
@@ -39,6 +36,11 @@
   color: lightblue;
   font-size: 1rem;
   text-decoration: underline;
+  outline: none;
+}
+
+.sort-div {
+  margin: 1rem;
 }
 
 .ticket {
@@ -95,4 +97,85 @@ li {
 
 /* Media Query */
 @media (min-width: 800px) {
+  #header {
+    justify-content: left;
+  }
+
+  #header input {
+    margin-left: 2rem;
+  }
+
+  #header .add-button {
+    cursor: pointer;
+  }
+
+  #header .add-button:hover {
+    color: rgb(0, 174, 255);
+    transform: scale(1.2);
+  }
+
+  #header p {
+    margin: auto 0 auto 20rem;
+  }
+
+  #restoreHideTickets {
+    cursor: pointer;
+  }
+
+  #restoreHideTickets:active {
+    color: blue;
+  }
+
+  .MuiMenu-list {
+    display: block;
+  }
+
+  .tickets-div {
+    width: 70%;
+    margin: auto;
+  }
+
+  .ticket-buttons {
+    animation: opacityAnimation 1s linear;
+  }
+
+  @keyframes opacityAnimation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .hideTicketButton {
+    cursor: pointer;
+  }
+
+  .hideTicketButton:hover {
+    background: lightgreen;
+  }
+
+  .done-button {
+    cursor: pointer;
+  }
+
+  .done-button:hover {
+    box-shadow: 5px 5px 10px lightgray;
+  }
+
+  .delete-button {
+    cursor: pointer;
+  }
+
+  .delete-button:hover {
+    box-shadow: 5px 5px 10px lightgray;
+  }
+
+  hr {
+    opacity: 0.8;
+    margin: 2rem auto;
+    width: 15%;
+    border-top: 10px dotted lightgray;
+  }
 }

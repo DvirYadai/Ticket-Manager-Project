@@ -55,8 +55,8 @@ export default function Main() {
         counter={counter}
         copyTicketArr={copyTicketArr}
       />
-      <SortMenu setTickets={setTickets} tickets={tickets} />
       <div className="tickets-div">
+        <SortMenu setTickets={setTickets} tickets={tickets} />
         {tickets.map((ticket, i) => {
           return (
             <Ticket
