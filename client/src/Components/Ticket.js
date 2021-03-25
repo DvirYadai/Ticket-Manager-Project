@@ -1,6 +1,7 @@
 import "../App.css";
 import React, { useState } from "react";
 import axios from "axios";
+import { isMobile } from "react-device-detect";
 import {
   CheckBox,
   CheckBoxOutlineBlank,
@@ -16,6 +17,7 @@ export default function Ticket({
 }) {
   const [showLess, setShowLess] = useState(true);
   const [done, setDone] = useState(ticket.done);
+  const [showButtons, setShowButtons] = useState(false);
 
   const hideButton = (e) => {
     const target = e.target.parentNode.parentNode;
@@ -57,31 +59,65 @@ export default function Ticket({
     }
   };
 
+  console.log(isMobile);
+
   return (
-    <div className="ticket">
-      <div className="ticket-buttons">
-        <button className="hideTicketButton" onClick={(e) => hideButton(e)}>
-          Hide
-        </button>
-        {done ? (
-          <CheckBox
+    <div
+      className="ticket"
+      onMouseEnter={isMobile ? null : () => setShowButtons(true)}
+      onMouseLeave={isMobile ? null : () => setShowButtons(false)}
+    >
+      {isMobile ? (
+        <div className="ticket-buttons">
+          <button className="hideTicketButton" onClick={(e) => hideButton(e)}>
+            Hide
+          </button>
+          {done ? (
+            <CheckBox
+              fontSize="large"
+              className="done-button"
+              onClick={doneButton}
+            />
+          ) : (
+            <CheckBoxOutlineBlank
+              fontSize="large"
+              className="done-button"
+              onClick={doneButton}
+            />
+          )}
+          <DeleteForever
             fontSize="large"
-            className="done-button"
-            onClick={doneButton}
+            className="delete-button"
+            onClick={deleteButton}
           />
-        ) : (
-          <CheckBoxOutlineBlank
-            fontSize="large"
-            className="done-button"
-            onClick={doneButton}
-          />
-        )}
-        <DeleteForever
-          fontSize="large"
-          className="delete-button"
-          onClick={deleteButton}
-        />
-      </div>
+        </div>
+      ) : (
+        showButtons && (
+          <div className="ticket-buttons">
+            <button className="hideTicketButton" onClick={(e) => hideButton(e)}>
+              Hide
+            </button>
+            {done ? (
+              <CheckBox
+                fontSize="large"
+                className="done-button"
+                onClick={doneButton}
+              />
+            ) : (
+              <CheckBoxOutlineBlank
+                fontSize="large"
+                className="done-button"
+                onClick={doneButton}
+              />
+            )}
+            <DeleteForever
+              fontSize="large"
+              className="delete-button"
+              onClick={deleteButton}
+            />
+          </div>
+        )
+      )}
       <h3>{ticket.title}</h3>
       <p>
         {showLess && ticket.content.length > 400
