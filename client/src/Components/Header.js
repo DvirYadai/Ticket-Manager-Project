@@ -2,7 +2,6 @@ import "../App.css";
 import React, { useState } from "react";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import NewTicket from "./NewTicket";
-import SortMenu from "./SortMenu";
 
 export default function Header({
   setSearchText,
@@ -46,7 +45,6 @@ export default function Header({
       ></input>
       <AddCircleIcon
         fontSize="large"
-        // color="primary"
         className="add-button"
         onClick={handleClickOpen}
       />
@@ -54,7 +52,6 @@ export default function Header({
       <p>
         Showing {tickets.length} results {counter > 0 ? hiddenSpan : ""}
       </p>
-      <SortMenu setTickets={setTickets} tickets={tickets} />
     </div>
   );
 }

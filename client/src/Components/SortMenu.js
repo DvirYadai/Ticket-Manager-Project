@@ -57,6 +57,7 @@ export default function SortMenu({ tickets, setTickets }) {
   return (
     <div>
       <Button
+        className="sort-div"
         aria-controls="customized-menu"
         aria-haspopup="true"
         variant="contained"

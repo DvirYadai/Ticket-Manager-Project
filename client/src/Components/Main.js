@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Ticket from "./Ticket";
 import Header from "./Header";
+import SortMenu from "./SortMenu";
 
 export default function Main() {
   const [tickets, setTickets] = useState([]);
@@ -54,18 +55,21 @@ export default function Main() {
         counter={counter}
         copyTicketArr={copyTicketArr}
       />
-      {tickets.map((ticket, i) => {
-        return (
-          <Ticket
-            key={`ticketKey #${i}`}
-            tickets={tickets}
-            setTickets={setTickets}
-            ticket={ticket}
-            setCounter={setCounter}
-            counter={counter}
-          />
-        );
-      })}
+      <SortMenu setTickets={setTickets} tickets={tickets} />
+      <div className="tickets-div">
+        {tickets.map((ticket, i) => {
+          return (
+            <Ticket
+              key={`ticketKey #${i}`}
+              tickets={tickets}
+              setTickets={setTickets}
+              ticket={ticket}
+              setCounter={setCounter}
+              counter={counter}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
