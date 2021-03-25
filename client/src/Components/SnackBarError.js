@@ -41,7 +41,7 @@ export default function SnackBarError({
       >
         <Alert onClose={handleClose} severity="error">
           {isServerDown
-            ? "Our servers are down at this moment"
+            ? "Our servers are down at this moment, we are working to fix the issue"
             : "Your are disconnected from the internet, please reconnect!"}
         </Alert>
       </Snackbar>
