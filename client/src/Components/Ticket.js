@@ -15,17 +15,15 @@ export default function Ticket({
   counter,
 }) {
   const [showLess, setShowLess] = useState(true);
-  const [done, setDone] = useState(false);
+  const [done, setDone] = useState(ticket.done);
 
   const hideButton = (e) => {
-    const target = e.target.parentNode;
+    const target = e.target.parentNode.parentNode;
+    console.log(target);
     const ticketArr = Array.from(document.querySelectorAll(".ticket"));
     const ticketIndex = ticketArr.indexOf(target);
     const tempTicketsArr = [...tickets];
     tempTicketsArr.splice(ticketIndex, 1);
-    tempTicketsArr.sort((a, b) => {
-      return new Date(b.creationTime) - new Date(a.creationTime);
-    });
     setTickets(tempTicketsArr);
     setCounter(counter + 1);
   };
