@@ -112,7 +112,7 @@ export default function NewTicket({
             label="Ticket labels"
             fullWidth
             onChange={(e) => (newTicket.labels = e.target.value.split(" "))}
-            helperText={`Please separate labels with space`}
+            helperText={`Please separate each label with space`}
           />
         </DialogContent>
         <DialogActions>
