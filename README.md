@@ -24,7 +24,7 @@ In this readme i will introduce you to my project and show you the functionaliti
 - Add button to add new ticket.
 - Delete button to delete ticket.
 - Adding routes to the delete and add http request, and also adding tests to those routes.
-- Adding custom errors to the user that indicates if the server is down or the user is disconnected from the internet.
+- Adding custom errors to the user that indicates if the server is down or if the user is disconnected from the internet.
 - Adding 'Show more' option if the content of the ticket is more than 400 characters.
 
 ## Enjoy!
