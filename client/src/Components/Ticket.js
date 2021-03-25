@@ -19,7 +19,6 @@ export default function Ticket({
 
   const hideButton = (e) => {
     const target = e.target.parentNode.parentNode;
-    console.log(target);
     const ticketArr = Array.from(document.querySelectorAll(".ticket"));
     const ticketIndex = ticketArr.indexOf(target);
     const tempTicketsArr = [...tickets];
