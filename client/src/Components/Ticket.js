@@ -14,6 +14,8 @@ export default function Ticket({
   ticket,
   setCounter,
   counter,
+  setOpenSnackBar,
+  setIsServerDown,
 }) {
   const [showLess, setShowLess] = useState(true);
   const [done, setDone] = useState(ticket.done);
@@ -35,14 +37,26 @@ export default function Ticket({
         await axios.patch(`/api/tickets/${ticket._id}/undone`);
         setDone(false);
       } catch (error) {
-        console.log(error);
+        if (error.toJSON().message === "Network Error") {
+          setIsServerDown(false);
+          setOpenSnackBar(true);
+        } else {
+          setIsServerDown(true);
+          setOpenSnackBar(true);
+        }
       }
     } else {
       try {
         await axios.patch(`/api/tickets/${ticket._id}/done`);
         setDone(true);
       } catch (error) {
-        console.log(error);
+        if (error.toJSON().message === "Network Error") {
+          setIsServerDown(false);
+          setOpenSnackBar(true);
+        } else {
+          setIsServerDown(true);
+          setOpenSnackBar(true);
+        }
       }
     }
   };
@@ -55,11 +69,15 @@ export default function Ticket({
       });
       setTickets(res.data);
     } catch (error) {
-      console.log(error);
+      if (error.toJSON().message === "Network Error") {
+        setIsServerDown(false);
+        setOpenSnackBar(true);
+      } else {
+        setIsServerDown(true);
+        setOpenSnackBar(true);
+      }
     }
   };
-
-  console.log(isMobile);
 
   return (
     <div

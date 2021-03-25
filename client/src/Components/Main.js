@@ -4,6 +4,7 @@ import axios from "axios";
 import Ticket from "./Ticket";
 import Header from "./Header";
 import SortMenu from "./SortMenu";
+import SnackBarError from "./SnackBarError";
 
 export default function Main() {
   const [tickets, setTickets] = useState([]);
@@ -11,6 +12,8 @@ export default function Main() {
   const [counter, setCounter] = useState(0);
   const firstUpdate = useRef(true);
   const [copyTicketArr, setCopyTicketArr] = useState([]);
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [isServerDown, setIsServerDown] = useState(false);
 
   useEffect(() => {
     (async function getAllTickets() {
@@ -22,7 +25,13 @@ export default function Main() {
         setTickets(res.data);
         setCopyTicketArr(res.data);
       } catch (error) {
-        console.log(error);
+        if (error.toJSON().message === "Network Error") {
+          setIsServerDown(false);
+          setOpenSnackBar(true);
+        } else {
+          setIsServerDown(true);
+          setOpenSnackBar(true);
+        }
       }
     })();
   }, []);
@@ -40,7 +49,13 @@ export default function Main() {
         });
         setTickets(res.data);
       } catch (error) {
-        console.log(error);
+        if (error.toJSON().message === "Network Error") {
+          setIsServerDown(false);
+          setOpenSnackBar(true);
+        } else {
+          setIsServerDown(true);
+          setOpenSnackBar(true);
+        }
       }
     })();
   }, [searchText]);
@@ -54,6 +69,8 @@ export default function Main() {
         setCounter={setCounter}
         counter={counter}
         copyTicketArr={copyTicketArr}
+        setOpenSnackBar={setOpenSnackBar}
+        setIsServerDown={setIsServerDown}
       />
       <div className="tickets-div">
         <SortMenu setTickets={setTickets} tickets={tickets} />
@@ -66,10 +83,17 @@ export default function Main() {
               ticket={ticket}
               setCounter={setCounter}
               counter={counter}
+              setOpenSnackBar={setOpenSnackBar}
+              setIsServerDown={setIsServerDown}
             />
           );
         })}
       </div>
+      <SnackBarError
+        openSnackBar={openSnackBar}
+        setOpenSnackBar={setOpenSnackBar}
+        isServerDown={isServerDown}
+      />
     </div>
   );
 }

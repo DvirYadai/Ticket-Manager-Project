@@ -10,6 +10,8 @@ export default function Header({
   setCounter,
   setTickets,
   copyTicketArr,
+  setOpenSnackBar,
+  setIsServerDown,
 }) {
   const [open, setOpen] = useState(false);
 
@@ -48,7 +50,13 @@ export default function Header({
         className="add-button"
         onClick={handleClickOpen}
       />
-      <NewTicket setOpen={setOpen} open={open} setTickets={setTickets} />
+      <NewTicket
+        setOpen={setOpen}
+        open={open}
+        setTickets={setTickets}
+        setOpenSnackBar={setOpenSnackBar}
+        setIsServerDown={setIsServerDown}
+      />
       <p>
         Showing {tickets.length} results {counter > 0 ? hiddenSpan : ""}
       </p>

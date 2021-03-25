@@ -11,7 +11,13 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 
-export default function NewTicket({ setOpen, open, setTickets }) {
+export default function NewTicket({
+  setOpen,
+  open,
+  setTickets,
+  setOpenSnackBar,
+  setIsServerDown,
+}) {
   const newTicket = {
     title: "",
     content: "",
@@ -37,12 +43,19 @@ export default function NewTicket({ setOpen, open, setTickets }) {
     ) {
       try {
         const res = await axios.post("/api/tickets/post", newTicket);
+        console.log(res);
         res.data.sort((a, b) => {
           return new Date(b.creationTime) - new Date(a.creationTime);
         });
         setTickets(res.data);
       } catch (error) {
-        console.log(error);
+        if (error.toJSON().message === "Network Error") {
+          setIsServerDown(false);
+          setOpenSnackBar(true);
+        } else {
+          setIsServerDown(true);
+          setOpenSnackBar(true);
+        }
       }
       setOpen(false);
     }
