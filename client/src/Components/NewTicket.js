@@ -36,6 +36,7 @@ export default function NewTicket({
   };
 
   const submitButton = async () => {
+    console.log(titleRef.current.value);
     if (
       titleRef.current.reportValidity() &&
       contentRef.current.reportValidity() &&
@@ -43,7 +44,6 @@ export default function NewTicket({
     ) {
       try {
         const res = await axios.post("/api/tickets/post", newTicket);
-        console.log(res);
         res.data.sort((a, b) => {
           return new Date(b.creationTime) - new Date(a.creationTime);
         });
@@ -82,13 +82,15 @@ export default function NewTicket({
             fullWidth
             inputRef={titleRef}
             onChange={(e) => (newTicket.title = e.target.value)}
-            helperText="At least 10 character"
           />
           <TextField
             required
             margin="dense"
             id="content"
+            variant="outlined"
             label="Content"
+            rows="3"
+            multiline
             fullWidth
             inputRef={contentRef}
             onChange={(e) => (newTicket.content = e.target.value)}
@@ -103,6 +105,14 @@ export default function NewTicket({
             inputRef={emailRef}
             onChange={(e) => (newTicket.userEmail = e.target.value)}
             helperText={`Must include '@'`}
+          />
+          <TextField
+            margin="dense"
+            id="labels"
+            label="Ticket labels"
+            fullWidth
+            onChange={(e) => (newTicket.labels = e.target.value.split(" "))}
+            helperText={`Please separate labels with space`}
           />
         </DialogContent>
         <DialogActions>
