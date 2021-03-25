@@ -5,6 +5,7 @@ import Ticket from "./Ticket";
 import Header from "./Header";
 import SortMenu from "./SortMenu";
 import SnackBarError from "./SnackBarError";
+import ScrollUpButton from "react-scroll-up-button";
 
 export default function Main() {
   const [tickets, setTickets] = useState([]);
@@ -62,6 +63,7 @@ export default function Main() {
 
   return (
     <div id="main">
+      <ScrollUpButton />
       <Header
         setSearchText={setSearchText}
         setTickets={setTickets}
