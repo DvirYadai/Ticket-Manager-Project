@@ -7,7 +7,7 @@ import SortMenu from "./SortMenu";
 import SnackBarError from "./SnackBarError";
 import ScrollUpButton from "react-scroll-up-button";
 
-export default function Main() {
+export default function Main({ userLogged, setUserLogged }) {
   const [tickets, setTickets] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [counter, setCounter] = useState(0);
@@ -73,6 +73,7 @@ export default function Main() {
         copyTicketArr={copyTicketArr}
         setOpenSnackBar={setOpenSnackBar}
         setIsServerDown={setIsServerDown}
+        userLogged={userLogged}
       />
       <div className="tickets-div">
         <SortMenu setTickets={setTickets} tickets={tickets} />

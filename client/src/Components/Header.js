@@ -2,6 +2,7 @@ import "../App.css";
 import React, { useState } from "react";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import NewTicket from "./NewTicket";
+import axios from "axios";
 
 export default function Header({
   setSearchText,
@@ -12,6 +13,7 @@ export default function Header({
   copyTicketArr,
   setOpenSnackBar,
   setIsServerDown,
+  userLogged,
 }) {
   const [open, setOpen] = useState(false);
 
@@ -26,6 +28,8 @@ export default function Header({
     setTickets(copyTicketArr);
     setCounter(0);
   };
+
+  const logoutButton = () => {};
 
   const hiddenSpan = (
     <span>
@@ -60,6 +64,10 @@ export default function Header({
       <p>
         Showing {tickets.length} results {counter > 0 ? hiddenSpan : ""}
       </p>
+      <p>{`Welcome, ${userLogged}`}</p>
+      <a href="/" onClick={() => axios.get("/api/user/logout")}>
+        Log out
+      </a>
     </div>
   );
 }
