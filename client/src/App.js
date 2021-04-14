@@ -18,6 +18,11 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
+            <Login setUserLogged={setUserLogged} userLogged={userLogged} />
+          </Route>
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/main" component={Main} />
+          {/* <Route exact path="/">
             {userLogged.length === 0 ? (
               <Login setUserLogged={setUserLogged} />
             ) : (
@@ -30,9 +35,9 @@ function App() {
             ) : (
               <SignUp setUserLogged={setUserLogged} />
             )}
-          </Route>
+          </Route> */}
           <Route exact path="/main">
-            <Main userLogged={userLogged} setUserLogged={setUserLogged} />
+            <Main userLogged={userLogged} />
           </Route>
         </Switch>
       </Router>

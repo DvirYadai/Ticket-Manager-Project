@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
-export default function Login({ setUserLogged }) {
+export default function Login({ setUserLogged, userLogged }) {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const { register, handleSubmit } = useForm();
+  let history = useHistory();
 
   const submitForm = async ({ email, password }) => {
     try {
@@ -15,9 +16,14 @@ export default function Login({ setUserLogged }) {
         password,
       });
       if (res.status === 200) {
-        setUserLogged(res.data.user);
+        // setUserLogged(res.data.user);
+        history.push({
+          pathname: "/main",
+          state: { user: res.data.user },
+        });
       }
     } catch (error) {
+      console.log(error);
       if (error.response.data.errors.email !== "") {
         setEmailError(error.response.data.errors.email);
       } else {

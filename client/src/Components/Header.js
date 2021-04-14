@@ -14,6 +14,7 @@ export default function Header({
   setOpenSnackBar,
   setIsServerDown,
   userLogged,
+  location,
 }) {
   const [open, setOpen] = useState(false);
 
@@ -64,7 +65,7 @@ export default function Header({
       <p>
         Showing {tickets.length} results {counter > 0 ? hiddenSpan : ""}
       </p>
-      <p>{`Welcome, ${userLogged}`}</p>
+      <p>{`Welcome, ${location.state.user}`}</p>
       <a href="/" onClick={() => axios.get("/api/user/logout")}>
         Log out
       </a>

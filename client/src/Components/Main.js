@@ -6,8 +6,9 @@ import Header from "./Header";
 import SortMenu from "./SortMenu";
 import SnackBarError from "./SnackBarError";
 import ScrollUpButton from "react-scroll-up-button";
+import { useLocation } from "react-router-dom";
 
-export default function Main({ userLogged, setUserLogged }) {
+export default function Main({ userLogged }) {
   const [tickets, setTickets] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [counter, setCounter] = useState(0);
@@ -15,6 +16,7 @@ export default function Main({ userLogged, setUserLogged }) {
   const [copyTicketArr, setCopyTicketArr] = useState([]);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [isServerDown, setIsServerDown] = useState(false);
+  let location = useLocation();
 
   useEffect(() => {
     (async function getAllTickets() {
@@ -74,6 +76,7 @@ export default function Main({ userLogged, setUserLogged }) {
         setOpenSnackBar={setOpenSnackBar}
         setIsServerDown={setIsServerDown}
         userLogged={userLogged}
+        location={location}
       />
       <div className="tickets-div">
         <SortMenu setTickets={setTickets} tickets={tickets} />
