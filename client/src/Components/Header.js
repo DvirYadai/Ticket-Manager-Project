@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import NewTicket from "./NewTicket";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 export default function Header({
   setSearchText,
@@ -17,6 +18,7 @@ export default function Header({
   location,
 }) {
   const [open, setOpen] = useState(false);
+  let history = useHistory();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,7 +32,14 @@ export default function Header({
     setCounter(0);
   };
 
-  const logoutButton = () => {};
+  const logoutUserButton = async () => {
+    try {
+      const res = await axios.get("/api/user/logout");
+      if (res.status === 200) history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const hiddenSpan = (
     <span>
@@ -65,10 +74,8 @@ export default function Header({
       <p>
         Showing {tickets.length} results {counter > 0 ? hiddenSpan : ""}
       </p>
-      <p>{`Welcome, ${location.state.user}`}</p>
-      <a href="/" onClick={() => axios.get("/api/user/logout")}>
-        Log out
-      </a>
+      {/* <p>{`Welcome, ${location.state.user}`}</p> */}
+      <button onClick={logoutUserButton}>Log out</button>
     </div>
   );
 }

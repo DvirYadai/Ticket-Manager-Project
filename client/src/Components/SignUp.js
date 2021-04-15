@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
 
-export default function SignUp({ setUserLogged }) {
+export default function SignUp() {
   const [usernameError, setUsernameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const { register, handleSubmit } = useForm();
+  let history = useHistory();
 
   const submitForm = async ({ username, email, password }) => {
     try {
@@ -16,7 +18,10 @@ export default function SignUp({ setUserLogged }) {
         password,
       });
       if (res.status === 201) {
-        setUserLogged(res.data.username);
+        history.push({
+          pathname: "/main",
+          state: { user: res.data.user },
+        });
       }
     } catch (error) {
       if (error.response.data.errors.username !== "") {
@@ -55,6 +60,9 @@ export default function SignUp({ setUserLogged }) {
           {passwordError !== "" ? passwordError : ""}
         </div>
         <button>Sign up</button>
+        <p>
+          Already have a user? <Link to="/">Login here</Link>
+        </p>
       </form>
     </div>
   );

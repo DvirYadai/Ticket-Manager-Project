@@ -10,6 +10,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 export default function NewTicket({
   setOpen,
@@ -18,6 +19,7 @@ export default function NewTicket({
   setOpenSnackBar,
   setIsServerDown,
 }) {
+  let history = useHistory();
   const newTicket = {
     title: "",
     content: "",
@@ -49,7 +51,9 @@ export default function NewTicket({
         });
         setTickets(res.data);
       } catch (error) {
-        if (error.toJSON().message === "Network Error") {
+        if (error.response.data.massage === "Unauthorized user") {
+          history.push("/");
+        } else if (error.toJSON().message === "Network Error") {
           setIsServerDown(false);
           setOpenSnackBar(true);
         } else {

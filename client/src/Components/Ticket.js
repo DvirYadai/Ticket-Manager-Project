@@ -7,6 +7,7 @@ import {
   CheckBoxOutlineBlank,
   DeleteForever,
 } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 export default function Ticket({
   tickets,
@@ -20,6 +21,7 @@ export default function Ticket({
   const [showLess, setShowLess] = useState(true);
   const [done, setDone] = useState(ticket.done);
   const [showButtons, setShowButtons] = useState(false);
+  let history = useHistory();
 
   const hideButton = (e) => {
     const target = e.target.parentNode.parentNode;
@@ -37,7 +39,9 @@ export default function Ticket({
         await axios.patch(`/api/tickets/${ticket._id}/undone`);
         setDone(false);
       } catch (error) {
-        if (error.toJSON().message === "Network Error") {
+        if (error.response.data.massage === "Unauthorized user") {
+          history.push("/");
+        } else if (error.toJSON().message === "Network Error") {
           setIsServerDown(false);
           setOpenSnackBar(true);
         } else {
@@ -50,7 +54,9 @@ export default function Ticket({
         await axios.patch(`/api/tickets/${ticket._id}/done`);
         setDone(true);
       } catch (error) {
-        if (error.toJSON().message === "Network Error") {
+        if (error.response.data.massage === "Unauthorized user") {
+          history.push("/");
+        } else if (error.toJSON().message === "Network Error") {
           setIsServerDown(false);
           setOpenSnackBar(true);
         } else {
@@ -69,7 +75,9 @@ export default function Ticket({
       });
       setTickets(res.data);
     } catch (error) {
-      if (error.toJSON().message === "Network Error") {
+      if (error.response.data.massage === "Unauthorized user") {
+        history.push("/");
+      } else if (error.toJSON().message === "Network Error") {
         setIsServerDown(false);
         setOpenSnackBar(true);
       } else {

@@ -3,7 +3,14 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const Ticket = require("../modules/ticket-schema");
 
+const checkLocals = (req, res) => {
+  if (res.locals.user === null) {
+    return res.status(401).json({ massage: "Unauthorized user" });
+  }
+};
+
 router.get("/", (req, res) => {
+  checkLocals(req, res);
   const { searchText } = req.query;
   if (searchText !== undefined) {
     Ticket.find({ title: { $regex: `${searchText}`, $options: "i" } })
@@ -25,6 +32,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/post", (req, res) => {
+  checkLocals(req, res);
   const { body } = req;
 
   const newTicket = new Ticket({
@@ -46,6 +54,7 @@ router.post("/post", (req, res) => {
 });
 
 router.delete("/:ticketId", (req, res) => {
+  checkLocals(req, res);
   const { ticketId } = req.params;
 
   Ticket.findOneAndDelete({ _id: ticketId })
@@ -60,6 +69,7 @@ router.delete("/:ticketId", (req, res) => {
 });
 
 router.patch("/:ticketId/done", (req, res) => {
+  checkLocals(req, res);
   const { ticketId } = req.params;
   Ticket.findByIdAndUpdate(ticketId, { done: true }, { new: true })
     .then((ticket) => {
@@ -71,6 +81,7 @@ router.patch("/:ticketId/done", (req, res) => {
 });
 
 router.patch("/:ticketId/undone", (req, res) => {
+  checkLocals(req, res);
   const { ticketId } = req.params;
   Ticket.findByIdAndUpdate(ticketId, { done: false }, { new: true })
     .then((ticket) => {

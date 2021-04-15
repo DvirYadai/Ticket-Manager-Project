@@ -6,7 +6,7 @@ import Header from "./Header";
 import SortMenu from "./SortMenu";
 import SnackBarError from "./SnackBarError";
 import ScrollUpButton from "react-scroll-up-button";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 export default function Main({ userLogged }) {
   const [tickets, setTickets] = useState([]);
@@ -16,6 +16,7 @@ export default function Main({ userLogged }) {
   const [copyTicketArr, setCopyTicketArr] = useState([]);
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [isServerDown, setIsServerDown] = useState(false);
+  let history = useHistory();
   let location = useLocation();
 
   useEffect(() => {
@@ -28,7 +29,9 @@ export default function Main({ userLogged }) {
         setTickets(res.data);
         setCopyTicketArr(res.data);
       } catch (error) {
-        if (error.toJSON().message === "Network Error") {
+        if (error.response.data.massage === "Unauthorized user") {
+          history.push("/");
+        } else if (error.toJSON().message === "Network Error") {
           setIsServerDown(false);
           setOpenSnackBar(true);
         } else {
@@ -52,7 +55,9 @@ export default function Main({ userLogged }) {
         });
         setTickets(res.data);
       } catch (error) {
-        if (error.toJSON().message === "Network Error") {
+        if (error.response.data.massage === "Unauthorized user") {
+          history.push("/");
+        } else if (error.toJSON().message === "Network Error") {
           setIsServerDown(false);
           setOpenSnackBar(true);
         } else {

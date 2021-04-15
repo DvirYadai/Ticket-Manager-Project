@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 
-export default function Login({ setUserLogged, userLogged }) {
+export default function Login() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const { register, handleSubmit } = useForm();
@@ -16,7 +16,6 @@ export default function Login({ setUserLogged, userLogged }) {
         password,
       });
       if (res.status === 200) {
-        // setUserLogged(res.data.user);
         history.push({
           pathname: "/main",
           state: { user: res.data.user },

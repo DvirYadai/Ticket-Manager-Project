@@ -2,29 +2,10 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const User = require("../modules/user-schema");
 
-const requireAuth = (req, res, next) => {
-  const token = req.cookies.jwt;
-
-  // check json web token exists & is verified
-  if (token) {
-    jwt.verify(token, process.env.SECRET_KEY, (err, decodedToken) => {
-      if (err) {
-        console.log(err.message);
-        res.redirect("/login");
-      } else {
-        console.log(decodedToken);
-        next();
-      }
-    });
-  } else {
-    res.redirect("/login");
-  }
-};
-
 // check current user
 const checkUser = (req, res, next) => {
-  const token = req.cookies.jwt;
-  if (token) {
+  if (req.cookies.jwt) {
+    const token = req.cookies.jwt;
     jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => {
       if (err) {
         res.locals.user = null;
@@ -41,4 +22,4 @@ const checkUser = (req, res, next) => {
   }
 };
 
-module.exports = { requireAuth, checkUser };
+module.exports = { checkUser };
